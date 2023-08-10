@@ -11,7 +11,7 @@ const useVariants = () => {
         },
 
         show: {
-            width: '250px',
+            width: '100%',
             transistion: {
                 ease: 'easeIn'
             }

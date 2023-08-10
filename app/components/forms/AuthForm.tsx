@@ -7,7 +7,7 @@ import { FaUser } from 'react-icons/fa'
 import { AiOutlineUser } from 'react-icons/ai'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { FaArrowAltCircleRight } from 'react-icons/fa'
-import { Btn, Input } from '..';
+import { Button, Input } from '..';
 import useToggle from '@/app/hooks/useToggle';
 import { Link } from '@mui/material';
 import { useAuthForm } from '@/app/hooks';
@@ -59,21 +59,21 @@ export default function AuthForm() {
         label='Password'
         />
 
-        <Btn
+        <Button
         icon={FaArrowAltCircleRight}
-        label='Sign up'
-        onClick={sendAuthData}
+        text='Sign up'
+        clickEvent={sendAuthData}
         />
-        <Btn
+        <Button
         icon={FaArrowAltCircleRight}
-        label='Switch'
-        onClick={switchSignup}
+        text='Switch'
+        clickEvent={switchSignup}
         />
 
         <Link className='w-full' href='/dashboard'>
-        <Btn
+        <Button
         icon={FaArrowAltCircleRight}
-        label='Dashboard'
+        text='Dashboard'
         modifier='w-full'
         />
         </Link>

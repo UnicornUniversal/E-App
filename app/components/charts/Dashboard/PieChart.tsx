@@ -10,11 +10,11 @@ interface PieChartProps {
 
 const PieChart: React.FC<PieChartProps> = ({ series, colors, value, title }) => {
 
-  return <div className="flex items-center gap-4 justify-between p-8">
-        <div className="space-y-2">
+  return <div className="flex flex-col items-center gap-2">
+        {/* <div className="space-y-2">
           <h1 className="text-2xl font-thin">{title}</h1>
           <h1 className="text-4xl font-bold">{value}</h1>
-        </div>
+        </div> */}
           <ReactApexChart
             options={{
               chart: {type: 'donut'},
@@ -24,8 +24,9 @@ const PieChart: React.FC<PieChartProps> = ({ series, colors, value, title }) => 
             }}
             series={series}
             type="donut"
-            width={`170px`}
+            width={`100px`}
           />
+          <h1>{title}</h1>
         </div> 
   
 };

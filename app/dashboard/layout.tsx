@@ -2,11 +2,11 @@
 
 
 import type { Metadata } from 'next'
-import { SideNav } from '../components'
+import { Header, SideNav } from '../components'
 import { useAppContext } from '../context/AppContext'
 
 
-export const metadata: Metadata = {
+ const metadata: Metadata = {
   title: 'Business Essentials',
   description: 'The Everything App',
 }
@@ -17,17 +17,20 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
 
-  const { handleSideToggle } = useAppContext()
+  const { handleSideToggle, sideToggle } = useAppContext()
 
   return (
     <div >
       <div >
         <div className='grid grid-cols-12'> 
-        <div className='grid col-span-2'>
-          <SideNav/>
+        <div className={`grid ${sideToggle ? 'col-span-2' : 'z-[50] w-[80px]'} bg-gray-2`}>
+        <SideNav/>
         </div>
-        <div className='grid col-span-10 p-4'>
+        <div className={`grid ${sideToggle ? 'col-span-10' : 'col-span-11'} p-4`}>
+        <div className='space-y-4'> 
+        <Header/>
         {children}
+        </div> 
         </div>
         </div>
       </div>

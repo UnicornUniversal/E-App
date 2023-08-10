@@ -11,6 +11,7 @@ export interface Avatar{
     modifier?: string
     userId?: string
     width?: string
+    height?: string
   }
 
 type FunctionHandler = () => void;
@@ -118,9 +119,12 @@ export interface ContextData {
     href?: string
     link?: string
     icon: IconType
+    type
+    toggle?: boolean
     notification?: number
     isAuthenticated?: boolean
     hasNotification?: boolean
+    dropDownAction?: () => void
   }
 
   export interface DiscoveryLinks {
