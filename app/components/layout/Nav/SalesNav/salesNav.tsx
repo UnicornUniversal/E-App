@@ -1,4 +1,4 @@
-import React from 'react'
+
 import SalesNavItem from './salesNavItem'
 import { useLinks } from '@/app/hooks'
 
@@ -12,6 +12,7 @@ const SalesNav = () => {
                                         key={item.label}
                                         icon={item.icon}
                                         label={item.label}
+                                        link={item.link}
                                         />)) }
         </div>
   

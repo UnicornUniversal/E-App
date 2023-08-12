@@ -18,7 +18,9 @@ export default function DashboardLayout({
 
   return (
     <div >
+    <div className='py-4'>
      <SalesNav/>
+    </div>
         {children}
        
     </div>

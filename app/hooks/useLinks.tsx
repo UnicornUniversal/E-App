@@ -1,11 +1,12 @@
 import { FaSearch, FaHome, FaCompass, FaPlusCircle, FaUser, 
     FaStar, FaCircle, FaGamepad, FaHatCowboy, FaTshirt, 
-    FaTools, FaLaptop, FaCarrot, FaMusic, FaCar, FaBell 
+    FaTools, FaLaptop, FaCarrot, FaMusic, FaCar, FaBell, FaFileInvoice, FaFileInvoiceDollar 
 } from "react-icons/fa";
 import { DiscoveryLinks, NavigationLinks } from "@/types/interfaces";
 import { useAppContext } from "../context/AppContext";
-import { MdAttachMoney } from "react-icons/md";
-import { BiSolidDashboard } from "react-icons/bi";
+import { MdAttachMoney, MdRequestQuote } from "react-icons/md";
+import { BiSolidDashboard, BiSolidReceipt } from "react-icons/bi";
+import { link } from "fs";
 
 
 
@@ -116,20 +117,24 @@ const discovery: DiscoveryLinks[] = [
 
 const salesTabs = [
   {
-      icon: FaBell,
-      label: 'Invoices'
+      icon: MdRequestQuote,
+      label: 'Quotes / Proforma ',
+      link: '/dashboard/finance/sales/quote'
+  },
+  {
+      icon: FaFileInvoiceDollar,
+      label: 'Invoice',
+      link: '/dashboard/finance/sales/invoice'
   },
   {
       icon: FaBell,
-      label: 'Quotes'
+      label: 'Waybill',
+      link: '/dashboard/finance/sales/proforma-invoice'
   },
   {
-      icon: FaBell,
-      label: 'Proforma Invoices'
-  },
-  {
-      icon: FaBell,
-      label: 'Receipting'
+      icon: BiSolidReceipt,
+      label: 'Receipt',
+      link: '/dashboard/finance/sales/receipting'
   },
 
 ]

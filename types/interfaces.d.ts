@@ -27,8 +27,49 @@ export interface Toggle {
 
 }
 
-export interface ToastProps {
+export type InputProps = {
+  type: string
+  name: string 
+  value: string | undefined | number
+  id?: string
+  onChange?: FormEventHandler
+  onFocus?: FormEventHandler
+  placeholder: string 
+  textColor?: string
+  modifier?: string
+  ref?: string
+  disabled?: boolean
+  hidden?: boolean
+  icon: IconType
+  iconModifier?: string
+  onClick?: ClickEvent
+  orientation?: string
+  onIcon?: boolean 
+}
 
+export type TextAreaProps = {
+  type: string
+  name: string 
+  value: string | undefined | number
+  id?: string
+  rows?: number
+  cols?: number
+  onChange?: FormEventHandler
+  onFocus?: FormEventHandler
+  placeholder: string 
+  textColor?: string
+  modifier?: string
+  ref?: string
+  disabled?: boolean
+  hidden?: boolean
+  icon: IconType
+  iconModifier?: string
+  onClick?: ClickEvent
+  orientation?: string
+}
+
+
+export interface ToastProps {
   modifier?: string
   children?: JSX.Element
   text?: string

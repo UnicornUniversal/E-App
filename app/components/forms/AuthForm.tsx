@@ -29,35 +29,35 @@ export default function AuthForm() {
       <div className='flex flex-col space-y-2'>
        
       {isSignup &&  <Input
-        icon={ AiOutlineUser }
-        type={`text`}
-        disableRipple
-        label='Name'
-        name='name'
-        value={authData.name}
-        onChange={handleAuthChange}
+          icon={AiOutlineUser}
+          type={`text`}
+          name='name'
+          value={authData.name}
+          onChange={handleAuthChange} 
+          placeholder={'Enter Full name'} 
+          modifier='input'       
         />}
 
         <Input
-        icon={ MdOutlineAlternateEmail }
-        type={`email`}
-        disableRipple
-        label='Email'
-        name='email'
-        value={authData.email}
-        onChange={ handleAuthChange}
-        />
+          icon={MdOutlineAlternateEmail}
+          type={`email`}
+          name='email'
+          value={authData.email}
+          onChange={handleAuthChange} 
+          placeholder={'Enter email'}   
+          modifier='input'
+          />
       
         <Input
-        toggle={showPassword}
-        handleClickShow={handleShowPassword}
-        icon={ showPassword ? FiEyeOff : FiEye }
-        type={showPassword ? 'text' : 'password'}
-        value={authData.password}
-        onChange={handleAuthChange}
-        name='password'
-        label='Password'
-        />
+          onClick={handleShowPassword}
+          icon={showPassword ? FiEyeOff : FiEye}
+          type={showPassword ? 'text' : 'password'}
+          value={authData.password}
+          onChange={handleAuthChange}
+          name='password' 
+          modifier='input'
+          placeholder={'Enter password'}        
+      />
 
         <Button
         icon={FaArrowAltCircleRight}

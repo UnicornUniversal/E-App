@@ -11,28 +11,58 @@ datasource db {
 }
 
 model User {
-
-  id              String @id @default(auto()) @map("_id") @db.ObjectId
-  name            String?
-  email           String?   @unique
-  emailVerified   DateTime?
-  image           String?
-  hashedPassword  String?
-  contact         String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  contact        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   task Task[]
-
+  Invoice Invoice[]
 }
 
 model Task {
-  
-  id              String @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String   @db.ObjectId
-  title           String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Define the Invoice model
+model Invoice {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceNumber String        @unique
+  issueDate     DateTime
+  dueDate       DateTime
+  totalAmount   Float
+  status        String // Paid, Unpaid, Overdue, etc.
+  items         InvoiceItem[]
+  from          String
+  to            String
+  discount      Float
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+}
+
+// Define the InvoiceItem model
+model InvoiceItem {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  quantity    Int
+  service     String
+  unitPrice   Float
+  price       Float
+  tax         Float
+  totalAmount Float
+
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoiceId String  @db.ObjectId
 }

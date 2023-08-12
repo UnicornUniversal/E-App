@@ -14,10 +14,13 @@ import DashboardCard from "./charts/Dashboard/DashboardCard";
 import LineChart from "./charts/Dashboard/LineChart";
 import CardTitle from "./charts/Dashboard/CardTitle";
 import SalesNav from "./layout/Nav/SalesNav/salesNav";
+import TextArea from "./ui/Input/Textarea";
+import CreateInvoice from "./forms/CreateInvoice";
+import Select from "./ui/Input/Select";
 
 export {
     Input, Button, SideNav, SideNavItem, PieChart,
     Toast, ToastButton, ToasterWrap, Modal, Checker,
     Header, Avatar, DashboardCard, LineChart, CardTitle, 
-    SalesNav
+    SalesNav, TextArea, CreateInvoice, Select
 }
