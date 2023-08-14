@@ -29,7 +29,7 @@ export interface Toggle {
 
 export type InputProps = {
   type: string
-  name: string 
+  name?: string 
   value: string | undefined | number
   id?: string
   onChange?: FormEventHandler

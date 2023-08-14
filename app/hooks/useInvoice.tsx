@@ -2,64 +2,59 @@
 
 import { useState } from "react"
 
- interface InvoiceItem {
+export interface InvoiceItem {
         id:          string
+        title: string
         description: string
         quantity:    number
-        service:     string
-        unitPrice:   string
-        price:       string   
-        totalAmount: string
+        unitPrice:   number
+        price:       number  
+        tax:         number 
+        totalAmount: number
     }
     
     interface InvoiceType {
         invoiceNumber: string     
         issueDate:     string
         dueDate :      string
-        totalAmount:   string
+        totalAmount:   number
         status:        String // Paid, Unpaid, Overdue, etc.
         items:         InvoiceItem[]
     }
 
-    interface LineItem {
-        description?: string;
-        quantity?: number;
-        unitPrice?: number;
-      }
 
 const useInvoice = () => {
 
     const initialInvoiceItemData: InvoiceItem ={
         id: "",
+        title: "",
         description: "",
         quantity: 0,
-        service: "",
-        unitPrice: "",
-        price: "",
-        totalAmount: ""
+        unitPrice: 0,
+        price: 0,
+        tax: 0,
+        totalAmount: 0
     }
 
    const initialInvoiceData: InvoiceType = {
-
        invoiceNumber: "",
        issueDate: "",
        dueDate: "",
-       totalAmount: "",
+       totalAmount: 0,
        status: 'Status',
        items: [initialInvoiceItemData]
    }
 
-   
 
    const [ invoiceData, setInvoiceData ] = useState<InvoiceType>(initialInvoiceData)
 
-   const [lineItems, setLineItems] = useState<LineItem[]>([]);
+   const [lineItems, setLineItems] = useState<InvoiceItem[]>([]);
 
    // Other form state variables
  
    // Add item to lineItems array
    const addItem = () => {
-    setLineItems([...lineItems, { description: undefined, quantity: undefined, unitPrice: undefined }]);
+    setLineItems([...lineItems, initialInvoiceItemData ]);
   };
 
  
@@ -70,12 +65,26 @@ const useInvoice = () => {
    };
  
    // Handle changes to a line item
-   const handleItemChange = (index: number, field: keyof LineItem, value: string | number) => {
-     const updatedItems: any = [...lineItems];
-     updatedItems[index][field] = value;
-     setLineItems(updatedItems);
-   };
+  //  const handleItemChange = (index: number, field: string, value: string | number) => {
+  //    const updatedItems: any = [...lineItems];
+  //    updatedItems[index][field] = value;
+  //    setLineItems(updatedItems);
+  //  };
  
+  //  const handlerChange = (e:  React.ChangeEvent<HTMLInputElement>, i: number) => {
+  //   const { name, value } = e.target;
+  //   const list = [...lineItems];
+  //   list[i][name] = value;
+  //   list[i]["totalAmount"] = list[i]["quantity"] * list[i]["price"];
+  //   setLineItems(list);
+  // };
+
+  const handleItemChange = (index: number, field: keyof InvoiceItem, value: string | number) => {
+    const updatedItem = { ...(lineItems.get(index) || {}), [field]: value };
+    const updatedItems = new Map(lineItems);
+    updatedItems.set(index, updatedItem);
+    setLineItems(updatedItems);
+  };
    // Submit form handler
    const handleSubmit = (e: React.FormEvent) => {
      e.preventDefault();
@@ -94,7 +103,9 @@ const useInvoice = () => {
     setInvoiceData(prevData => ({...prevData, value }))
   }
 
-  return {invoiceData, setInvoiceData, handleInvoiceChange, initialInvoiceItemData, initialInvoiceData}
+  return {invoiceData, setInvoiceData, handleInvoiceChange, initialInvoiceItemData, 
+          initialInvoiceData, addItem, setLineItems, lineItems, removeItem, handleItemChange
+        }
 }
 
 export default useInvoice

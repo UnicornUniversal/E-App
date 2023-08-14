@@ -17,10 +17,10 @@ import SalesNav from "./layout/Nav/SalesNav/salesNav";
 import TextArea from "./ui/Input/Textarea";
 import CreateInvoice from "./forms/CreateInvoice";
 import Select from "./ui/Input/Select";
-
+import InvoiceItem from "./forms/InvoiceItem";
 export {
     Input, Button, SideNav, SideNavItem, PieChart,
     Toast, ToastButton, ToasterWrap, Modal, Checker,
     Header, Avatar, DashboardCard, LineChart, CardTitle, 
-    SalesNav, TextArea, CreateInvoice, Select
+    SalesNav, TextArea, CreateInvoice, Select, InvoiceItem
 }
