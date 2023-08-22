@@ -38,7 +38,7 @@ const useDarkMode = () => {
     isEnabled ? bodyClass.add(className) : bodyClass.remove(className);
   }, [ enabled, isEnabled ]);
 
-  return [ enabled, setEnabled  ];
+  return [ enabled, setEnabled ];
 };
 
 export default useDarkMode;

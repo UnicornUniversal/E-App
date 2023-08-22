@@ -22,7 +22,7 @@ export default function DashboardLayout({
   return (
     <div >
       <div >
-        <div className='grid grid-cols-12'> 
+        <div className='grid grid-cols-12 bg-black dark:bg-gray-100 '> 
         <div className={`grid ${sideToggle ? 'col-span-2' : 'z-[50] w-[80px]'} bg-gray-2`}>
         <SideNav/>
         </div>

@@ -7,15 +7,19 @@ import { FaUser } from 'react-icons/fa'
 import { AiOutlineUser } from 'react-icons/ai'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { FaArrowAltCircleRight } from 'react-icons/fa'
-import { Button, Input } from '..';
+import { Button, Input, Modal } from '../..';
 import useToggle from '@/app/hooks/useToggle';
 import { Link } from '@mui/material';
 import { useAuthForm } from '@/app/hooks';
+import FreelancerSignup from './FreelancerSignup';
 
 
 export default function AuthForm() {
   
   const [ showPassword, handleShowPassword ] = useToggle(false)
+  const [ asAgent, handleAsAgent, setAsAgent ] = useToggle(false)
+  const [ asFreelance, handleAsFreelance, setAsFreelance ] = useToggle(false)
+  const [ asBusinessIndividual, handleAsBusinessIndividual, setAsBusinessIndividual] = useToggle(false)
   const {sendAuthData, isSignup, switchSignup, handleAuthChange, authData} = useAuthForm()
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -77,6 +81,47 @@ export default function AuthForm() {
         modifier='w-full'
         />
         </Link>
+        <div className='space-y-2'>
+        <Modal
+          icon={FaUser}
+          toggle={asFreelance}
+          onClick={handleAsFreelance}
+          label="Sign as an Freelancer"
+          modifier="btn"
+          modal={asFreelance ? 'asFreelance' : ''}
+          checked={asFreelance}
+          modalOff={() => setAsFreelance(false)}
+        >
+          <FreelancerSignup/>
+        </Modal>
+
+        <Modal
+          icon={FaUser}
+          toggle={asAgent}
+          onClick={handleAsAgent}
+          label="Sign as an Agent"
+          modifier="btn"
+          modal={asAgent ? 'handleAsAgent' : ''}
+          checked={asAgent}
+          modalOff={() => setAsAgent(false)}
+        >
+          <h1>Agent</h1>
+        </Modal>
+
+        <Modal
+        icon={FaUser}
+        toggle={asBusinessIndividual}
+        onClick={handleAsBusinessIndividual}
+        label="Sign as Business or Individual"
+        modifier="btn"
+        modal={asBusinessIndividual ? 'AsBusinessIndividual' : ''}
+        checked={asBusinessIndividual}
+        modalOff={() => setAsBusinessIndividual(false)}
+
+        >
+          <h1>Businnees</h1>
+        </Modal>
+        </div>
       </div>
     </div>
   );

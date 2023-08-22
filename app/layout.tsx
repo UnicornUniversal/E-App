@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={inter.className}>
+      <body className={`bg-black dark:bg-white ${inter.className}`}>
       <SessionProvider>
       <ToasterWrap/> 
       <AppContext>

@@ -27,6 +27,10 @@ export interface Toggle {
 
 }
 
+export interface CSSClasses {
+  [key: string]: CSSProperties
+}
+
 export type InputProps = {
   type: string
   name?: string 
@@ -150,11 +154,10 @@ export interface ContextData {
   handleAddPostToggle?: ClickEvent
   darkMode?: ToggleHandler
   toggleDarkMode?: ClickEvent
-  
+
 }
 
   export interface NavigationLinks {
-
     id?: number
     name: string
     href?: string
@@ -234,3 +237,59 @@ export interface ContextData {
     userId?: string
   
   }
+
+  import { CSSProperties } from 'react'
+export interface ShippingOptions {
+  description: string
+  price: string
+}
+export interface ProductLine {
+ length?: any
+  description: string
+  quantity: string
+  price: string
+  taxRate: any
+  discount: string
+  amount: string
+}
+
+export interface Invoice {
+  logo: string
+  logoWidth: number
+  title: string
+  companyName: string
+  name: string
+  companyAddress: string
+  companyAddress2: string
+  companyCountry: string
+
+  billTo: string
+  clientName: string
+  clientAddress: string
+  clientAddress2: string
+  clientCountry: string
+
+  invoiceTitleLabel: string
+  invoiceTitle: string
+  invoiceDateLabel: string
+  invoiceDate: string
+  invoiceDueDateLabel: string
+  invoiceDueDate: string
+
+  productLineDescription: string
+  productLineQuantity: string
+  productLineQuantityRate: string
+  productLineQuantityAmount: string
+  productLines: ProductLine[] 
+  shippingOptions:  ShippingOptions[] | string
+  subTotalLabel: string
+  taxLabel: string
+
+  totalLabel: string
+  currency: string
+
+  notesLabel: string
+  notes: string
+  termLabel: string
+  term: string
+}

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -14,28 +15,28 @@ module.exports = {
       // },
     },
   },
-  rippleui: {
+  // rippleui: {
 
-		themes: [
-			{
-				themeName: "light",
-				colorScheme: "light",
-				colors: {
-          primary: "#000000",
-					backgroundPrimary: "#ffffff",
+	// 	themes: [
+	// 		{
+	// 			themeName: "light",
+	// 			colorScheme: "light",
+	// 			colors: {
+  //         primary: "#000000",
+	// 				backgroundPrimary: "#ffffff",
 					
-				},
-			},
-			{
-				themeName: "dark",
-				colorScheme: "dark",
-				colors: {
-          primary: "#ffffff",
-					backgroundPrimary: "#000000",
-				},
-			},
-		],
-	},
+	// 			},
+	// 		},
+	// 		{
+	// 			themeName: "dark",
+	// 			colorScheme: "dark",
+	// 			colors: {
+  //         primary: "#ffffff",
+	// 				backgroundPrimary: "#000000",
+	// 			},
+	// 		},
+	// 	],
+	// },
 
   plugins: [require("rippleui")]
 }

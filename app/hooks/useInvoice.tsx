@@ -1,111 +1,171 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Invoice, ProductLine } from '@/types/interfaces'
+import { initialProductLine, initialInvoice } from "../components/forms/NewInvoiceComponents/data/initialData"
+import { useToggle } from ".";
 
-export interface InvoiceItem {
-        id:          string
-        title: string
-        description: string
-        quantity:    number
-        unitPrice:   number
-        price:       number  
-        tax:         number 
-        totalAmount: number
-    }
+
+    const useInvoice = ( data?: Invoice, onChange?: (invoice: Invoice) => void ) => {
+         
+      const [invoice, setInvoice] = useState<Invoice>(data ? { ...data } : { ...initialInvoice })
+      const [subTotal, setSubTotal] = useState<number>()
+      const [saleTax, setSaleTax] = useState<number>()
+      const [amount, setAmount] = useState<number>()
+      const [ includeShippingOptions, setIncludeShippingOptions ] = useState<number>()
+      const [selectedTaxRate, setSelectedTaxRate] = useState(0);
+      const [totalTax, setTotalTax] = useState<number>(0);
+
+      const taxOptions = [
+        { 'percentage': 0},   {'percentage': 4},   {'percentage': 5},   {'percentage': 10},
+      ]
+
+      const [ mode, handlePDFMode, setPDFMode ] = useToggle(false)
+      const dateFormat = 'MMM dd, yyyy'
+      const invoiceDate = invoice.invoiceDate !== '' ? new Date(invoice.invoiceDate) : new Date()
+      const invoiceDueDate =
+        invoice.invoiceDueDate !== ''
+          ? new Date(invoice.invoiceDueDate)
+          : new Date(invoiceDate.valueOf())
     
-    interface InvoiceType {
-        invoiceNumber: string     
-        issueDate:     string
-        dueDate :      string
-        totalAmount:   number
-        status:        String // Paid, Unpaid, Overdue, etc.
-        items:         InvoiceItem[]
-    }
-
-
-const useInvoice = () => {
-
-    const initialInvoiceItemData: InvoiceItem ={
-        id: "",
-        title: "",
-        description: "",
-        quantity: 0,
-        unitPrice: 0,
-        price: 0,
-        tax: 0,
-        totalAmount: 0
-    }
-
-   const initialInvoiceData: InvoiceType = {
-       invoiceNumber: "",
-       issueDate: "",
-       dueDate: "",
-       totalAmount: 0,
-       status: 'Status',
-       items: [initialInvoiceItemData]
-   }
-
-
-   const [ invoiceData, setInvoiceData ] = useState<InvoiceType>(initialInvoiceData)
-
-   const [lineItems, setLineItems] = useState<InvoiceItem[]>([]);
-
-   // Other form state variables
- 
-   // Add item to lineItems array
-   const addItem = () => {
-    setLineItems([...lineItems, initialInvoiceItemData ]);
-  };
-
- 
-   // Remove item from lineItems array
-   const removeItem = (index: number) => {
-     const updatedItems = lineItems.filter((_, i) => i !== index);
-     setLineItems(updatedItems);
-   };
- 
-   // Handle changes to a line item
-  //  const handleItemChange = (index: number, field: string, value: string | number) => {
-  //    const updatedItems: any = [...lineItems];
-  //    updatedItems[index][field] = value;
-  //    setLineItems(updatedItems);
-  //  };
- 
-  //  const handlerChange = (e:  React.ChangeEvent<HTMLInputElement>, i: number) => {
-  //   const { name, value } = e.target;
-  //   const list = [...lineItems];
-  //   list[i][name] = value;
-  //   list[i]["totalAmount"] = list[i]["quantity"] * list[i]["price"];
-  //   setLineItems(list);
-  // };
-
-  const handleItemChange = (index: number, field: keyof InvoiceItem, value: string | number) => {
-    const updatedItem = { ...(lineItems.get(index) || {}), [field]: value };
-    const updatedItems = new Map(lineItems);
-    updatedItems.set(index, updatedItem);
-    setLineItems(updatedItems);
-  };
-   // Submit form handler
-   const handleSubmit = (e: React.FormEvent) => {
-     e.preventDefault();
-     // Handle submission using Prisma or other methods
-   };
-
- 
-   const handleInvoiceChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
-
-    const { value, type, name, checked} = e.target
-    const newValue = type === "checkbox" ? checked : value;
-    setInvoiceData((prevData) => ({
-    ...prevData,
-    [name]: newValue,
-    }))
-    setInvoiceData(prevData => ({...prevData, value }))
-  }
-
-  return {invoiceData, setInvoiceData, handleInvoiceChange, initialInvoiceItemData, 
-          initialInvoiceData, addItem, setLineItems, lineItems, removeItem, handleItemChange
+      if (invoice.invoiceDueDate === '') {
+        invoiceDueDate.setDate(invoiceDueDate.getDate() + 30)
+      }
+    
+      const handleChange = (name: keyof Invoice, value: string | number) => {
+        if (name !== 'productLines') {
+          const newInvoice = { ...invoice }
+    
+          if (name === 'logoWidth' && typeof value === 'number') {
+            newInvoice[name] = value
+          } else if (name !== 'logoWidth' && typeof value === 'string') {
+            newInvoice[name] = value
+          }
+    
+          setInvoice(newInvoice)
         }
-}
+      }
 
-export default useInvoice
+        useEffect(() => {
+        const totalTaxAmount = invoice.productLines.reduce((acc, productLine) => {
+        const taxNumber = selectedTaxRate;
+        const lineAmount = parseInt(productLine.amount);
+        return acc + (taxNumber ? (lineAmount * taxNumber) / 100 : 0);
+      }, 0);
+  
+  setTotalTax(totalTaxAmount);
+}, [invoice.productLines, selectedTaxRate]);
+    
+      const handleProductLineChange = (index: number, name: keyof ProductLine, value: string) => {
+        const productLines = invoice.productLines.map((productLine, i) => {
+          if (i === index) {
+            const newProductLine = { ...productLine };
+      
+            if (name === 'description') {
+              newProductLine[name] = value;
+            } else if (name === 'taxRate') {
+              newProductLine[name] = value; // Update taxRate field
+              newProductLine.amount = calculateAmount(
+                newProductLine.quantity,
+                newProductLine.price,
+                value // Use the updated taxRate value
+              );
+            } else {
+              if (value[value.length - 1] === '.' || (value[value.length - 1] === '0' && value.includes('.'))) {
+                newProductLine[name] = value;
+              } else {
+                const n = parseFloat(value);
+                newProductLine[name] = (n ? n : 0).toString();
+              }
+              // Recalculate amount when other fields change
+              newProductLine.amount = calculateAmount(
+                newProductLine.quantity,
+                newProductLine.price,
+                newProductLine.taxRate // Use the current taxRate value
+              );
+            }
+      
+            return newProductLine;
+          }
+      
+          return { ...productLine };
+        });
+      
+        setInvoice({ ...invoice, productLines });
+      };
+      
+    
+      const handleRemove = (i: number) => {
+        const productLines = invoice.productLines.filter((productLine, index) => index !== i)
+    
+        setInvoice({ ...invoice, productLines })
+      }
+    
+      const handleAdd = () => {
+        const newProductLine: ProductLine = {
+          ...initialProductLine,
+          description: '',
+          quantity: '',
+          price: '',
+          taxRate: 'Tax',
+          discount: '',
+          amount: ''
+        };
+        const productLines: ProductLine[] = [...invoice.productLines, newProductLine];
+      
+        setInvoice({ ...invoice, productLines });
+      };
+
+      let total: number = 0
+      
+      const calculateAmount = (quantity: string, price: string, tax: string) => {
+        const quantityNumber = parseFloat(quantity);
+        const priceNumber = parseFloat(price);
+        const taxNumber = parseInt(tax);
+        const amount = quantityNumber && priceNumber ? quantityNumber * priceNumber : 0;
+        const taxAmount = taxNumber ? amount * (taxNumber / 100) : 0; // Calculate tax amount
+        total = amount
+        const totalAmount = amount + taxAmount; // Add tax amount to the original amount
+        
+        return Math.round(totalAmount).toFixed(2);
+      };
+  
+    
+      useEffect(() => {
+        let subTotal = 0
+    
+        invoice.productLines.forEach((productLine) => {
+          
+          const quantityNumber = parseFloat(productLine.quantity)
+          const priceNumber = parseFloat(productLine.price)
+          const amount = quantityNumber && priceNumber ? quantityNumber * priceNumber  : 0
+
+          subTotal += amount
+     
+        })
+    
+        setSubTotal(subTotal)
+      }, [invoice.productLines])
+    
+      // useEffect(() => {
+      //   const match = invoice.taxLabel.match(/(\d+)%/);
+      //   // const taxRate = match ? selectedTaxRate / 100 : 0 // Divide by 100 to convert from percentage to decimal
+      //   const saleTax = subTotal ? subTotal * selectedTaxRate : 0;
+      //   setSaleTax(subTotal);
+      // }, [subTotal, invoice.taxLabel, selectedTaxRate]);
+    
+      useEffect(() => {
+        if (onChange) {
+          onChange(invoice)
+        }
+      }, [onChange, invoice])
+
+      return {
+      invoice, handleChange, handleAdd, handleProductLineChange, handleRemove,
+      invoiceDate, dateFormat, invoiceDueDate, calculateAmount, subTotal,taxOptions, totalTax,
+      saleTax, mode, handlePDFMode, setPDFMode, selectedTaxRate, setSelectedTaxRate, amount
+      };
+    };
+    
+    export default useInvoice;
+    

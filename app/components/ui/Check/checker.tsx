@@ -1,7 +1,16 @@
+'use client'
 
+import useDarkMode from "@/app/hooks/useDarkMode"
 
 const Checker = () => {
-  return <input type="checkbox" className="switch switch-ghost-primary" />
+
+const [ toggle, setDark ] = useDarkMode()
+
+const handleDarkMode = () => {
+  setDark((prev: boolean ) => !prev)
+}
+
+  return <input checked={toggle} onClick={handleDarkMode} type="checkbox" className="switch" />
 }
 
 export default Checker

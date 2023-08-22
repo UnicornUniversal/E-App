@@ -7,7 +7,7 @@ const useToggle = ( initialValue:boolean = false ) => {
 
   const [ toggle, setToggle ] = useState(initialValue)
 
-  const handleToggle: any = () => {
+  const handleToggle: any =  () => {
 
       setToggle(prev => !prev)
 

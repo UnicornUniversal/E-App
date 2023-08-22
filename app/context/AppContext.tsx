@@ -1,8 +1,8 @@
 "use client"
 
-import {useContext, createContext, SetStateAction, Dispatch } from "react";
+import {useContext, createContext, SetStateAction, Dispatch, useState } from "react";
 import { useHeight, useToggle } from "../hooks";
-import { IProps, Side } from "@/types/interfaces";
+import { IProps, Side, ToggleHandler } from "@/types/interfaces";
 
 interface AppContextTypes {
     toggle?: boolean
@@ -14,6 +14,8 @@ interface AppContextTypes {
     addUserModal?: boolean
     handleAddUserModal:  () => void
     setAddUserModal: Dispatch<SetStateAction<boolean>>
+    selectedOptions?: string[]
+    setSelectedOptions?: Dispatch<SetStateAction<string[]>>
     
 }
 
@@ -23,7 +25,8 @@ const Context = createContext<AppContextTypes>({
     handleToggle () {},
     handleAddUserModal () {},
     height: 0,
-    setAddUserModal: () => {}
+    setAddUserModal: () => {},
+
 }) 
 
 export const AppContext = ({ children }: IProps) => {
@@ -32,12 +35,13 @@ export const AppContext = ({ children }: IProps) => {
     const [ addUserModal, handleAddUserModal, setAddUserModal ] = useToggle(false)
     const [ sideToggle, handleSideToggle, setSideToggle ] = useToggle(true)
     const [ toggle, handleToggle ] = useToggle(true)
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   return <Context.Provider value={{ toggle, handleToggle, sideToggle, 
                                     handleSideToggle, setSideToggle,
                                     height, addUserModal, handleAddUserModal, 
-                                    setAddUserModal
-                                 }}>
+                                    setAddUserModal,
+                                  }}>
 
             {children}
 

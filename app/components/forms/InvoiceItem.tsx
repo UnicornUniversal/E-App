@@ -7,19 +7,18 @@ import { IoAccessibility } from "react-icons/io5"
 import { FaPercentage, FaTrash } from "react-icons/fa"
 
 interface InvoiceItemProps {
-    handleInvoiceChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     clickEvent?: () => void
     index?: number
     item: {
         title: string
         description: string
-        quantity:    number
-        unitPrice:   number
-        price:       number   
-        tax:         number
-        totalAmount: number
+        quantity:    string
+        unitPrice:   string
+        price:       string   
+        tax:         string
+        totalAmount: string
       };
-    onChange: (index: any, field: string, value: string | number) => void;
+    onChange: (index: any, field: string, value: string ) => void;
     
     }
 
@@ -38,7 +37,7 @@ const InvoiceItem: React.FC<InvoiceItemProps> = ({item, index, onChange ,clickEv
               />
             <Input    
                 modifier="input" 
-                type='text'
+                type='text'   
                 name="description"
                 value={item.description} 
                 placeholder={"Description"} 
@@ -51,7 +50,7 @@ const InvoiceItem: React.FC<InvoiceItemProps> = ({item, index, onChange ,clickEv
               type='text'
               name="quantity"
               value={item.quantity} 
-              placeholder={"Issue date"} 
+              placeholder={"Quantity"} 
               icon={IoAccessibility }  
               onIcon={false}      
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(index, 'quantity', e.target.value)}
@@ -62,18 +61,18 @@ const InvoiceItem: React.FC<InvoiceItemProps> = ({item, index, onChange ,clickEv
               name="tax"
               value={item.tax} 
               placeholder={"Tax"} 
-              icon={   FaPercentage }  
+              icon={ FaPercentage }  
               onIcon={true}      
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(index, 'description', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(index, 'tax', e.target.value)}
               />
-            <Select   
+            {/* <Select   
              title="Tax type"
-             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(index, 'service', e.target.value)}
+             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(index, 'status', e.target.value)}
              name="status">
                <option value="draft">Tax inclusive</option>
                <option value="paid">Tax exclusive</option>
              
-           </Select>
+           </Select> */}
             <Button text="Remove" modifier="bg-red-500/50" clickEvent={clickEvent} icon={FaTrash}/>
         </div>
 }

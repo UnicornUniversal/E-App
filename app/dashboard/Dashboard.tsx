@@ -32,7 +32,7 @@ const Dashboard = () => {
   />))}
   </div>
     <div className="grid grid-cols-4 gap-4 grid-rows-2">
-      <div className="bg-gray-2 grid col-span-2 p-4 rounded-lg">
+      <div className="dark:bg-gray-200 bg-gray-2 grid col-span-2 p-4 rounded-lg">
         <CardTitle
         icon={IoBarChart}
         title="Revenue"
@@ -48,7 +48,7 @@ const Dashboard = () => {
         icon={IoBarChart}
         title="Website Statistics"
         />
-        <div className="flex justify-between  items-center">
+        <div className="flex justify-between  items-center ">
         <PieChart
               title="Total visitors"
               series={[2, 4]} 
