@@ -1,4 +1,8 @@
-import ReactApexChart from "react-apexcharts"
+import dynamic from 'next/dynamic';
+
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
+
+// Then use `ApexCharts` in your component
 
 interface LineChartProps {
     series: number[]
@@ -9,7 +13,7 @@ interface LineChartProps {
 
 const LineChart: React.FC<LineChartProps> = ({colors, series, title, value}) => {
 
-  return     <ReactApexChart
+  return     <ApexCharts
   options={{
     chart: {type: 'line'},
     colors,

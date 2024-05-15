@@ -1,7 +1,13 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { IconType } from 'react-icons';
+import { Button } from '../..';
 
+type Ops = {
+  icon: IconType
+  name: string
+}
 interface OptionsButtonProps {
-  options: string[];
+  options: Ops[]
   selectedOptions: string[]
   setSelectedOptions: Dispatch<SetStateAction<string[]>>
 }
@@ -17,17 +23,18 @@ const OptionsButton: React.FC<OptionsButtonProps> = ({ options, selectedOptions,
   };
 
   return (
-    <div className="flex space-x-2">
-      {options.map((option) => (
-        <button
-          key={option}
-          className={`px-4 py-2 border btn ${
-            selectedOptions.includes(option) ? 'bg-blue-500 text-white' : 'bg-white'
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {options.map((option: Ops) => (
+        <Button
+          key={option.name}
+          modifier={`p-8  ${
+            selectedOptions.includes(option.name) ? 'bg-blue-500 text-white' : 'bg-white text-black '
           }`}
-          onClick={() => handleOptionClick(option)}
-        >
-          {option}
-        </button>
+          clickEvent={() => handleOptionClick(option.name)}
+          text={option.name}
+          icon={option.icon}
+        />
+    
       ))}
     </div>
   );

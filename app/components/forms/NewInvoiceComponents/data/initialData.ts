@@ -1,17 +1,16 @@
-
+import { generate } from "shortid";
 import { Invoice, ProductLine, ShippingOptions } from "@/types/interfaces"
-
+import { useInformationContext } from "../../../../context/InformationContext";
 export interface TaxOptions {
   percentage: number
 }
 
 export const initialProductLine: ProductLine[] = [{
+  id: generate(),
   description: '',
-  quantity: '1',
+  quantity: '',
   price: '',
-  taxRate:  [
-    { 'percentage': 0},   {'percentage': 4},   {'percentage': 5},   {'percentage': 10},
-  ],
+  taxRate: '',
   discount: '',
   amount: ''
 }]
@@ -22,15 +21,16 @@ export const initialShippingOptions: ShippingOptions[] = [{
 }]
 
 export const initialInvoice: Invoice = {
+  
   logo: '',
   logoWidth: 100,
-  title: 'INVOICE',
+  title: '',
   companyName: '',
   name: '',
   companyAddress: '',
   companyAddress2: '',
   companyCountry: 'United States',
-  billTo: 'Bill To:',
+  billTo: '',
   clientName: '',
   clientAddress: '',
   clientAddress2: '',
@@ -46,7 +46,7 @@ export const initialInvoice: Invoice = {
   productLineQuantityRate: 'Rate',
   productLineQuantityAmount: 'Amount',
   productLines: initialProductLine,
-  shippingOptions:  initialShippingOptions,
+  shippingOptions: initialShippingOptions,
   subTotalLabel: 'Sub Total',
   taxLabel: 'Sale Tax (10%)',
   totalLabel: 'TOTAL',
@@ -55,4 +55,7 @@ export const initialInvoice: Invoice = {
   notes: 'It was great doing business with you.',
   termLabel: 'Terms & Conditions',
   term: 'Please make the payment by the due date.',
+  slice: function (arg0: number, index: number): unknown {
+    throw new Error("Function not implemented.")
+  }
 }

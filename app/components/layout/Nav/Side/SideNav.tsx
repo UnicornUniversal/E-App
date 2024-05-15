@@ -5,9 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useLinks, useToggle, useVariants } from "@/app/hooks";
 import { useAppContext } from "@/app/context/AppContext";
-import { MdDashboard } from "react-icons/md";
-import { BiSolidUserPin } from "react-icons/bi";
-import { IconBaseProps } from "react-icons";
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect } from "react";
 import { NavigationLinks } from "@/types/interfaces";
@@ -36,13 +33,13 @@ const SideNav = () => {
   return <motion.div
           variants={sideNavVariant}
           animate={sideNavController}
-          className="p-4 h-screen">
+          className=" min-h-screen p-8">
           <div className="flex justify-between items-center mb-8">
           {sideToggle ? <h1>
             BE
           </h1> : <h1>BE</h1>}
             <IconButton
-            onClick={handleSideToggle}
+             onClick={handleSideToggle}
             >
               {sideToggle ? <FaAngleLeft/> : <FaAngleRight/>}
             </IconButton>
@@ -58,11 +55,8 @@ const SideNav = () => {
             toggle={linkMenuToggle}
             dropDownAction={handleLinkMenuToggle}
             />
-          
             ))}
-       
           </div>
-
         </motion.div>
 };
 

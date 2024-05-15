@@ -27,7 +27,7 @@ return <>
             <label onClick={modalOff} className="modal-overlay" htmlFor={`${modal}`}></label>
             <div className="modal-content flex flex-col gap-5 max-w-none">
                 <label onClick={modalOff} htmlFor={`${modal}`} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
-               <div>{children}</div>
+               <div className="">{children}</div>
             </div>
         </div>
     

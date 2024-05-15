@@ -39,7 +39,7 @@ const NavLink: React.FC<NavigationLinks> = (props) => {
               </div>}
 
               {
-                type === 'menu' && <Button text="" icon={FaAngleDown} clickEvent={dropDownAction}/>
+                sideToggle && type === 'menu' && <Button text="" icon={FaAngleDown} clickEvent={dropDownAction}/>
               }
             
             </Link>

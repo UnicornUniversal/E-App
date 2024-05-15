@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FC, useRef, useState } from 'react'
 import Slider from 'rc-slider'
 import { Image as PDFImage} from '@react-pdf/renderer'

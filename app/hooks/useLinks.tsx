@@ -29,7 +29,7 @@ const links: NavigationLinks[] = [
    {
     "id": 2,
     "name": "Finance",
-    "link": "/dashboard/finance",
+    "link": "",
     "icon": MdAttachMoney,
     "notification": 0,
     "isAuthenticated": true,
@@ -129,7 +129,7 @@ const salesTabs = [
   {
       icon: FaBell,
       label: 'Waybill',
-      link: '/dashboard/finance/sales/proforma-invoice'
+      link: '/dashboard/finance/sales/waybill'
   },
   {
       icon: BiSolidReceipt,

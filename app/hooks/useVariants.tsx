@@ -4,7 +4,7 @@ const useVariants = () => {
 
     const sideNavVariant = {
         hidden: {
-            width: '85px',
+            width: '10%',
             transistion: {
                 ease: 'easeOut'
             }

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FC, useState } from 'react'
 import { Text } from '@react-pdf/renderer'
 import compose from './styles/compose'

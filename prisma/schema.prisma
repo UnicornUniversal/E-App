@@ -13,16 +13,23 @@ datasource db {
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
+  firstName      String
+  lastName       String
   email          String?   @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
+  description    String?
   role           String       
-  features       String[]       
+  features       String[]
+  skills         String[]      
+  occupation     String
+  education      String
+  website        String
+  certifications String[]
   contact        String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-
   task Task[]
   Invoice Invoice[]
 }

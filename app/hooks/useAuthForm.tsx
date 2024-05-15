@@ -1,3 +1,5 @@
+"use client"
+
 import { IUser } from "@/types/interfaces";
 import { User } from "@prisma/client";
 import React, { useState } from "react";

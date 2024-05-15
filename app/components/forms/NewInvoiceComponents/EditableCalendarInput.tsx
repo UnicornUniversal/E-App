@@ -6,8 +6,8 @@ import compose from './styles/compose'
 
 interface Props {
   className?: string
-  value?: string
-  selected?: Date
+  value?: string | number | null
+  selected: Date | null | undefined 
   onChange?: (date: Date | [Date, Date] | null) => void
   pdfMode?: boolean
 }

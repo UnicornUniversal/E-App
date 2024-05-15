@@ -1,34 +1,37 @@
 import React, { FC, useEffect, useState } from 'react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import { Invoice } from '@/types/interfaces'
-import InvoicePage from './InvoicePage'
+import InvoicePageCom from './CreateInvoice'
 
 interface Props {
-  data: Invoice
-}
+  data?: Invoice
+  show?: boolean
+  component: any
+} 
 
-const Download: FC<Props> = ({ data }) => {
-  const [show, setShow] = useState<boolean>(false)
+const Download: FC<Props> = ({ data, show, component: Com }) => {
 
-  useEffect(() => {
-    setShow(false)
+    // const [show, setShow] = useState<boolean>(true)
 
-    const timeout = setTimeout(() => {
-      setShow(true)
-    }, 500)
+    // useEffect(() => {
+    //   setShow(false)
 
-    return () => clearTimeout(timeout)
-  }, [data])
+    //   const timeout = setTimeout(() => {
+    //     setShow(true)
+    //   }, 500)
+
+    //   return () => clearTimeout(timeout)
+    // }, [data])
 
   return (
     <div className={'download-pdf ' + (!show ? 'loading' : '')} title="Save PDF">
-      {show && (
+     
         <PDFDownloadLink
-          document={<InvoicePage pdfMode={true} data={data} />}
-          fileName={`${data.invoiceTitle ? data.invoiceTitle.toLowerCase() : 'invoice'}.pdf`}
+          document={<Com/>}
+          fileName={`${data?.invoiceTitle ? data?.invoiceTitle.toLowerCase() : 'invoice'}.pdf`}
           aria-label="Save PDF"
-        ></PDFDownloadLink>
-      )}
+        ><button>Download</button></PDFDownloadLink>
+    
     </div>
   )
 }

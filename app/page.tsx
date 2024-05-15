@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import AuthForm from './components/forms/AuthForms/AuthForm'
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return <AuthForm/>
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+    redirect("/en");
 }

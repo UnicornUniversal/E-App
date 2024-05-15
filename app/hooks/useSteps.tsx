@@ -17,7 +17,7 @@ enum BI_STEPS {
    
   }
   
-  return { FREELANCE_STEPS }
+  return { FREELANCE_STEPS, BI_STEPS }
 }
 
 export default useSteps

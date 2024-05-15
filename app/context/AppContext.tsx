@@ -1,8 +1,8 @@
 "use client"
 
 import {useContext, createContext, SetStateAction, Dispatch, useState } from "react";
-import { useHeight, useToggle } from "../hooks";
-import { IProps, Side, ToggleHandler } from "@/types/interfaces";
+import { useHeight, useInvoice, useToggle } from "../hooks";
+import { IProps, Invoice, Side, ToggleHandler } from "@/types/interfaces";
 
 interface AppContextTypes {
     toggle?: boolean
@@ -16,7 +16,7 @@ interface AppContextTypes {
     setAddUserModal: Dispatch<SetStateAction<boolean>>
     selectedOptions?: string[]
     setSelectedOptions?: Dispatch<SetStateAction<string[]>>
-    
+    invoice?: Invoice
 }
 
 const Context = createContext<AppContextTypes>({
@@ -32,6 +32,7 @@ const Context = createContext<AppContextTypes>({
 export const AppContext = ({ children }: IProps) => {
 
     const [ height ] = useHeight()
+    const { invoice } = useInvoice()
     const [ addUserModal, handleAddUserModal, setAddUserModal ] = useToggle(false)
     const [ sideToggle, handleSideToggle, setSideToggle ] = useToggle(true)
     const [ toggle, handleToggle ] = useToggle(true)
@@ -40,7 +41,7 @@ export const AppContext = ({ children }: IProps) => {
   return <Context.Provider value={{ toggle, handleToggle, sideToggle, 
                                     handleSideToggle, setSideToggle,
                                     height, addUserModal, handleAddUserModal, 
-                                    setAddUserModal,
+                                    setAddUserModal, invoice
                                   }}>
 
             {children}

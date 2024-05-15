@@ -66,7 +66,6 @@ export type TextAreaProps = {
   ref?: string
   disabled?: boolean
   hidden?: boolean
-  icon: IconType
   iconModifier?: string
   onClick?: ClickEvent
   orientation?: string
@@ -185,37 +184,7 @@ export interface ContextData {
       
   }
  
-  export interface Post {
-  id?: string
-  body?: string
-  image?: string
-  video?: string
-  createAt?: string
-  userId?: string
-  likedIds: string[]
-  map?: any
-  filter?: any
-  user?: IUser
-  comments: Comments[]
-  length?: any
-  }
-
-  export interface Comments {
-  id?: string 
-  body?: string 
-  createAt?: string 
-  updateAt?: string 
-  userId?: string
-  postId?: string 
-  user?: IUser
-  post?: string 
-  map?: any
-  filter?: any
-  length?: any
-  name?: string
-  userName?: string
-  }
-  
+ 
   
   export interface IUser {
     id?: string;
@@ -223,6 +192,9 @@ export interface ContextData {
     email?: string 
     emailVerified?: Date 
     image?: string 
+    sector?: string
+    role?: string
+    options?: string[]
     password?: string 
     contact?: string 
     createdAt?: Date;
@@ -244,7 +216,7 @@ export interface ShippingOptions {
   price: string
 }
 export interface ProductLine {
- length?: any
+  id: number | string
   description: string
   quantity: string
   price: string
@@ -254,6 +226,8 @@ export interface ProductLine {
 }
 
 export interface Invoice {
+  [x: string]: any;
+  slice(arg0: number, index: number): unknown;
   logo: string
   logoWidth: number
   title: string
@@ -262,7 +236,7 @@ export interface Invoice {
   companyAddress: string
   companyAddress2: string
   companyCountry: string
-
+  
   billTo: string
   clientName: string
   clientAddress: string
@@ -281,7 +255,7 @@ export interface Invoice {
   productLineQuantityRate: string
   productLineQuantityAmount: string
   productLines: ProductLine[] 
-  shippingOptions:  ShippingOptions[] | string
+  shippingOptions:  ShippingOptions[] 
   subTotalLabel: string
   taxLabel: string
 

@@ -3,9 +3,9 @@
 import { 
   DateRange, 
   Range, 
-  RangeKeyDict
+  RangeKeyDict  
 } from 'react-date-range';
-
+  
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
@@ -21,9 +21,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
   disabledDates
 }) => {
 
-
-
   return ( 
+
     <DateRange
       rangeColors={['#262626']}
       ranges={[value]}
@@ -34,7 +33,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
       minDate={new Date()}
       disabledDates={disabledDates}
     />
-   );
+
+   )
 }
  
 export default DatePicker;
